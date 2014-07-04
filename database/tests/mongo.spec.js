@@ -18,7 +18,7 @@ var setUpMongo = function () {
   return proxyquire('../mongo',{'mongoose':mongoose});
 };
 
-describe("the mongo connection service", function() {
+describe("mongo service", function() {
 
 	it("should be defined", function() {
 		var db = setUpMongo();
@@ -74,8 +74,9 @@ describe("the mongo connection service", function() {
 
 			beforeEach(function() {
 				call_interceptor =	sinon.spy(mongoose.connection,"once");
-				db = setUpMongo();
-				db_Connect = call_interceptor.args[0][1];
+				db_Connect = function(){
+					call_interceptor.args[0][1]();
+				}
 				//execute callback
 			});
 
@@ -83,13 +84,13 @@ describe("the mongo connection service", function() {
 			  call_interceptor.restore();			  
 			});
 
-			it("should be a resolved promise", function() {
-			  
-			});
 			it("should return a function", function(done) {
+
+				db = setUpMongo();
 				db_Connect();
-				returned_arg = db.then(function (result) {
-					expect(typeof result).toEqual('function');
+
+				db.then(function (result) {
+					expect(typeof result).toEqual('object');
 					done();
 				});
 			});
@@ -97,15 +98,67 @@ describe("the mongo connection service", function() {
 		});		
 	});
 
+	describe("mongo.getRatings", function() {
 
+		var db, db_Connect,call_interceptor,mongo;
 
-	// describe("when it is called with a string", function() {
-	// 	beforeEach(function() {
-	// 	  mongoose.findOne = sinon.spy()
-	// 	});
-	//   it("should call mongoose.findOne with that string", function() {
-	//   	db('123')
-	//     expect(mongoose.findOne).toHaveBeenCalled();;
-	//   });
-	// });
+		beforeEach(function() {
+			// wrap async retreival of functions
+			call_interceptor =	sinon.spy(mongoose.connection,"once");
+
+			db_Connect = function(){
+				call_interceptor.args[0][1]();
+			}
+		});
+
+		afterEach(function() {
+		  call_interceptor.restore();			  
+		});
+	  
+	  it("should be defined", function(done) {
+			db = setUpMongo();
+			db_Connect();
+
+			db.then(function (mongo) {
+		  	expect(mongo.getRatings).toBeDefined();
+				done();
+			})
+	
+	  });
+
+	  describe("when called", function() {
+
+	  	var mock,stub,spy;
+
+	  	beforeEach(function() {
+		  	spy = sinon.spy();
+			  mock = {findOne:spy};
+		  	stub = sinon.stub(mongoose,'model').returns(mock);	  	  
+
+				db = setUpMongo();
+				db_Connect();
+	  	});
+
+	  	afterEach(function() {
+	  	  stub.restore();
+	  	});
+
+			it("should return a promise", function(done) {
+				db.then(function (mongo) {
+			  	expect(mongo.getRatings().then).toBeDefined();
+					done();
+				})
+	    });	    
+
+		  it("should call the User model with it's parameter and a callback", function(done) {
+				db.then(function (mongo) {
+					mongo.getRatings('123');
+			  	expect(spy).toHaveBeenCalled();
+			  	expect(spy.args[0][0]).toEqual({uid:'123'});
+			  	expect(typeof spy.args[0][1]).toEqual('function');
+					done();
+				})
+		  });
+	  });
+	});
 });

@@ -27,21 +27,31 @@ var dbconnect = q.defer();
 
 db.once('open', function() {
 
-	console.log('called');
-	dbconnect.resolve(function (uid) {
+	dbconnect.resolve({
+		getRatings:function (uid) {
 
-		var deferred = q.defer();
+			var deferred = q.defer();
 
-		User.findOne({uid:uid},function (error,success) {
-			console.log('error',error),
-			console.log('success',success)
-			deferred.resolve(fakedata);
-		})
+			User.findOne({uid:uid},function (error,success) {
+				// if(success !== 'null'){
+				// }else {
 
-		return deferred.promise
-	});
+				// }
+				// console.log('error',error),
+				// console.log('success',success)
+				deferred.resolve(fakedata);
+			})
 
+			return deferred.promise;
+		},
+		setRating:function (rating) {
+			var deferred = q.defer();
+
+			return deferred.promise
+		}
+	})
 });
+
 
 module.exports = dbconnect.promise;
 
