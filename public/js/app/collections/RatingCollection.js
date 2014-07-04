@@ -3,7 +3,7 @@ define(["jquery","backbone","models/RestaurantModel","helpers/getUser"],
 
     var Collection = Backbone.Collection.extend({
       model: RestaurantModel,
-      url: '/data/'+User
+      url: function () {return ('/data/'+User )}
     });
 
     return Collection;

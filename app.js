@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var data = require('./routes/data');
+var getdata = require('./routes/getdata');
+var setdata = require('./routes/setdata');
 
 var app = express();
 
@@ -21,9 +22,10 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/data', data);
+//app.use('/', routes);
+app.use('/data', getdata);
 
+app.post('/data/:uid',setdata);
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

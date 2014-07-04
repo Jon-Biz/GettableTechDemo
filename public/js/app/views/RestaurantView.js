@@ -7,9 +7,9 @@ define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Model',
                 var hidden = true;
                 this.on('showDetails',function(args){
                     if (hidden){
-                        this.$('#count').css('display','inline');
+                        this.$('.hide').css('display','inline');
                     } else {
-                        this.$('#count').css('display','none');
+                        this.$('.hide').css('display','none');
                     }
                     hidden = !hidden;
                 })

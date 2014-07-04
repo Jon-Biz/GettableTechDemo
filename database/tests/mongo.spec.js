@@ -45,7 +45,7 @@ describe("mongo service", function() {
 			var spy =	sinon.spy(mongoose,"connect");
 			setUpMongo();
 
-		  expect(spy).toHaveBeenCalledWith('mongodb://localhost:27017');
+		  expect(spy).toHaveBeenCalledWith('mongodb://localhost:27017/roastorrant');
 		  spy.restore();
 		});
 
@@ -154,13 +154,13 @@ describe("mongo service", function() {
 				db.then(function (mongo) {
 					mongo.getRatings('123');
 			  	expect(spy).toHaveBeenCalled();
-			  	expect(spy.args[0][0]).toEqual({uid:'123'});
+			  	expect(spy.args[0][0]).toEqual({user_id:'123'});
 			  	expect(typeof spy.args[0][1]).toEqual('function');
 					done();
 				})
 		  });
 	  });
-	  describe("when User.findOne responds with null", function() {
+	  xdescribe("when User.findOne responds with null", function() {
 	  	var mock,stub,user_search;
 
 	  	beforeEach(function(done) {
