@@ -150,7 +150,7 @@ describe("mongo service", function() {
 				})
 	    });	    
 
-		  it("should call the User model with it's parameter and a callback", function(done) {
+		  it("should call the find method on the User model with it's parameter and a callback", function(done) {
 				db.then(function (mongo) {
 					mongo.getRatings('123');
 			  	expect(spy).toHaveBeenCalled();
@@ -159,6 +159,40 @@ describe("mongo service", function() {
 					done();
 				})
 		  });
+	  });
+	  describe("when User.findOne responds with null", function() {
+	  	var mock,stub,user_search;
+
+	  	beforeEach(function(done) {
+		  	interceptor = sinon.spy();
+		  	user_search = function () {
+		  		console.log(interceptor.args[0])
+		  		interceptor.args[0][1]('null','null');
+		  	}
+
+			  modelspy = sinon.spy();
+			  modelspy.findOne = interceptor;
+		  	stub = sinon.stub(mongoose,'model').returns(modelspy);	  	  
+
+				db = setUpMongo();
+				db_Connect();
+
+				db.then(function (mongo) {
+					mongo.getRatings('123').then(function () {
+						user_search();
+						done();
+					});
+				})
+
+	  	});
+
+	  	afterEach(function() {
+	  	  stub.restore();
+	  	});
+
+	    it("should call User with new", function() {
+	      expect(modelspy.calledWithNew()).toBeTruthy();
+	    });
 	  });
 	});
 });

@@ -8,7 +8,7 @@ var fakedata = require('./fakedata');
 var db = mongoose.connection;
 db.on('error', console.error);
 
-mongoose.connect('mongodb://'+server);
+mongoose.connect('mongodb://'+server+'/roastorrant');
 
 var restaurantSchema = new mongoose.Schema({
 	restaurant_id:String,
@@ -32,14 +32,42 @@ db.once('open', function() {
 
 			var deferred = q.defer();
 
-			User.findOne({uid:uid},function (error,success) {
-				// if(success !== 'null'){
-				// }else {
+			User.findOne({user_id:uid},function (error,success) {
+				//if no user, make one
+				console.log('success',success)
+				if(success == null){
+						console.log('usernew calling');
+					var newUser = new User({'user_id':uid,'reviews':[]})
+						console.log('usernew called');
 
-				// }
-				// console.log('error',error),
-				// console.log('success',success)
-				deferred.resolve(fakedata);
+					newUser.save(function (error,newUser) {
+						if(error) {
+							console.error(err)
+						}else {
+							console.log('success!!');
+						}
+					});
+				}
+
+				var getUsers = q.defer();
+				User.find(function (error, users) {
+					getUsers.resolve(users);
+				})
+
+				var getRatings = q.defer();
+				Restaurant.find(function (error,ratings) {
+					getRatings.resolve(ratings);
+				})
+
+				getUsers.promise.then(function (users) {
+					getRatings.promise.then(function (ratings) {
+						deferred.resolve(require('./joinData')(users,ratings));
+					})
+				})
+				//retrieve restaurant data
+				
+				//combine with user data
+
 			})
 
 			return deferred.promise;
