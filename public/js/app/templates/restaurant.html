@@ -1,0 +1,18 @@
+    <div class="title">{{name}}</div>
+
+    <div>
+        <div style="display:inline-block;">
+            <div class="stars"style="position:relative;display:inline-block">
+                <div class="countbar" style="top:0px;position:absolute;background-color:green;width:0">
+                    <span class="fa fa-stack fa-lg">
+                        <span class="fa fa-stack fa-lg"></span>
+                        <span class="fa fa-stack fa-lg"></span>
+                        <span class="fa fa-stack fa-lg"></span>
+                        <span class="fa fa-stack fa-lg"></span>
+                    </span>
+                </div>  
+                {{#stars}}{{/stars}}
+            </div>
+        </div>
+    </div>    
+    <div id="count" style="display:none">{{ratingCount}} - ratings</div>
