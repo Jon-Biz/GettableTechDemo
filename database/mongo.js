@@ -5,7 +5,7 @@ var dbname = 'roastorrant';
 
 var mongoose = require('mongoose');
 var q = require('q');
-
+var _ = require('underscore');
 var db = mongoose.connection;
 db.on('error', console.error);
 
@@ -30,9 +30,10 @@ var dbconnect = q.defer();
 db.once('open', function() {
 
 	dbconnect.resolve({
+
 		getRatings:function (uid) {
 
-			var deferred = q.defer();
+			var deferRatings = q.defer();
 
 			User.findOne({user_id:uid},function (error,user) {
 				if(!user){
@@ -61,38 +62,26 @@ db.once('open', function() {
 					getRatings.resolve(ratings);
 				})
 
-
 				getUsers.promise.then(function (users) {
 					getRatings.promise.then(function (ratings) {
-						deferred.resolve(require('./joinData')(users,ratings));
+						deferRatings.resolve(require('./joinData')(user,users,ratings));
 					})
 				})
-				//retrieve restaurant data
 				
-				//combine with user data
-
 			})
 
-			return deferred.promise;
+			return deferRatings.promise;
 		},
 		setRating:function (uuid,rating) {
-			console.log('uuid',uuid);
-			console.log('rating',rating)
 			var deferred = q.defer();
 
 			var getRestaurant = q.defer();
 			Restaurant.findOne({name:rating.name},function findRestaurant (error,restaurant) {
-				console.log('res found',restaurant)
 				getRestaurant.resolve(restaurant);
 			})
-			
-			// User.find(function (error,users) {
-			// 	console.log(users)
-			// })
-			
+						
 			var getUser = q.defer();
 			User.findOne({user_id:uuid},function findUser (error,user) {
-				console.log('udrt found',user)
 				getUser.resolve(user);
 			})
 
@@ -100,20 +89,25 @@ db.once('open', function() {
 				getUser.promise.then(function (user) {
 
 					var dupe = false;
-					_.each(user.reveiw,function (reveiw) {
-						if(_.has(reveiw,restaurant._id)){
-							reviews[restaurant._id]=rating.myrating;
+
+					_.each(user.reviews,function (review) {
+						if(review[restaurant._id]){
+							console.log('restaurant._id',review[restaurant._id])
+							review[restaurant._id] = rating.myrating;
+							console.log('rating',rating.myrating)
+						console.log('user.reviews ',user.reviews[0])
+							dupe = true;
 						}
+						console.log('user.reviews ',user.reviews[0])
 					})
 
 					if(!dupe){
-						var review = {}
+						var review = {};
 						review[restaurant._id] = rating.myrating										
-						user.reviews.push(review)
+						user.reviews.push(review);
+						console.log('pushed:',user.reviews)
 					}
 
-
-					console.log('saving');
 					User.update({user_id:uuid},{'reviews':user.reviews},function (error,number) {
 						console.log('done:',number)
 						deferred.resolve();

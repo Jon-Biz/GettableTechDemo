@@ -1,4 +1,4 @@
-define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Model', 'hbs!templates/restaurant'],
+define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/RestaurantModel', 'hbs!templates/restaurant'],
     function(App, Backbone, Marionette, $, HandleBars, Model, template) {
 
         var View = Backbone.Marionette.ItemView.extend( {
@@ -14,43 +14,56 @@ define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Model',
                     hidden = !hidden;
                 })
 
+                function saveAndRefresh (rating,view) {
 
+                    view.model.set("myrating",rating).save();
+                    App.Data.Ratings.fetch({success: function(collection,response,options) {
+                            view.render();
+                        },
+                        error: function (collection,response,options) {
+                            console.log('data retreival error');
+                        }
+                    });
+                }
                 // this isn't how you are supposed to do things.
                 this.on('nostar',function(){
-                    this.model.set("myrating",0).save();
-
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(0, view);
                 })
 
                 this.on('onestar',function(){
-                    this.model.set("myrating",1).save();
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(1, view);
                 })
                 this.on('twostars',function(){
-                    this.model.set("myrating",2).save();
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(2, view);
                 })
                 this.on('threestars',function(){
-                    this.model.set("myrating",3).save();
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(3, view);
                 })
                 this.on('fourstars',function(){
-                    this.model.set("myrating",4).save();
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(4, view);
                 })
                 this.on('fivestars',function(){
-                    this.model.set("myrating",5).save();
-                    this.render();
+                    var view = this;
+                    saveAndRefresh(5, view);
                 })
             },
             onShow: function(){
-                var percent = (this.model.get('rating')/0.05)+'%';
+
+                // The 0.06 number is a hack, due to time constraints. It should actually be 5%
+                // The DOM it sits in is too long for what it should do.
+
+                var percent = (this.model.get('rating')/0.06)+'%';
                 this.$('.countbar').animate({width:percent},1000);
                 this.shown = true;
             },
             onDomRefresh: function(){
                 if(this.shown){
-                    var percent = (this.model.get('rating')/0.05)+'%';
+                    var percent = (this.model.get('rating')/0.06)+'%';
                     this.$('.countbar').animate({width:percent},0);                    
                 }
             },
@@ -69,7 +82,8 @@ define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Model',
         });
 
         HandleBars.registerHelper('stars',function (context,options) {
-                console.log('rating',this.rating);
+            console.log('this.myrating',this.myrating);
+
             var stars = '<div>';
 
             for (var i = 1; i <= 5; i++) {
