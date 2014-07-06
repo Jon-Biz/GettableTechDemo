@@ -1,7 +1,6 @@
 define([],
 	function () {
 
-
 		var	cname = 'uuid';
 		var	exdays = 7;
 
@@ -34,10 +33,8 @@ define([],
 
 	    var user = getCookie();
 	    if (user != "") {
-	    	console.log('found');
 	    	return user;
 	    } else {
-	    	console.log('not found')
-            return setCookie();
+        return setCookie();
 	    }
 	})

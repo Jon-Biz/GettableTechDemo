@@ -82,7 +82,6 @@ define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Restaur
         });
 
         HandleBars.registerHelper('stars',function (context,options) {
-            console.log('this.myrating',this.myrating);
 
             var stars = '<div>';
 
