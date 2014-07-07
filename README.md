@@ -34,7 +34,7 @@ If it finds the user in the User database, it retrieves the rating and update it
  
 The client considers a rating of zero to be a delete and consequently the server deletes the record, so that it count toward the average score.
 
-The User's data is then updated on the server, and the getdata function is triggered, and returning the new, update data, including the user's recent rating change. 
+The User's data is then updated on the server. Then, the getdata function is triggered, returning the new, updated data, including the user's recent rating change. 
 
 ## Schema
 
