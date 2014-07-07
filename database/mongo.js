@@ -44,6 +44,7 @@ db.once('open', function() {
 							console.error(error)
 						}
 					});
+					user = newUser;
 				}
 
 				var getUsers = q.defer();
