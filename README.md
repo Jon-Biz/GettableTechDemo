@@ -12,7 +12,7 @@ On load, the client checks for the cookie `uuid`. If it doesn't find one, it gen
 
 While the instructions were not to bother 'designing' the app, I wanted the opportunity to demonstrate integration of DOM manipulation with marionette's view system. So, I included a couple of simple animations triggered within Marionnette's onRender and onShow methods.
 
-The client was built (unfortunately, it turns out) on the Backbone-Marionette Boiler Plate project. As a result, there's a lot of cruft (particularly in the index.html) that make the code less than readable, that I didn't have time to weed through :( It added requirejs though, which I had not used with backbone before, and was nice.
+I built this on top of https://github.com/BoilerplateMVC/Marionette-Require-Boilerplate . There's still some leftover files and other stuff that make may the code less than navigable/readable, that I did not have time to weed out.
 
 ## Database API
 
@@ -36,11 +36,11 @@ The User's data is then updated on the server. Then, the getdata function is tri
 
 ## Schema
 
-If it's not obvious, there are two schemas on the mongodb database: the restaurant one, which holds static restaurant data, and the Users, which holds an array containing a key/value pairs for each restaurant the user has reveiwed.
+If it is not obvious, there are two schemas on the mongodb database: the restaurant one, which holds static restaurant data, and the Users, which holds an array containing a key/value pairs for each restaurant the user has reveiwed.
 
 ##Tests
 
-Since time constraints prevented me from doing a proper job, I didn't test most of this project :( However, I wanted to show you how I would work when working with production code, so I build out >some< of the project as I would if I expected myself or others to be re-visiting it. Here are some jasmine tests of the data joining and database access modules, injecting promises and making use of callback interceptors:
+I worked quickly, and did not use unit testing for most of it I did not test most of this. However, since I wanted to show you exampes of tests, I built a couple of models in a test driven style. Here jasmine tests of the data joining and database access modules, injecting promises and making use of callback interceptors:
 
 https://github.com/Jon-Biz/GettableTechDemo/tree/master/database/tests
 
