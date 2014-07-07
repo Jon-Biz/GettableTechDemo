@@ -12,6 +12,8 @@ On load, the client checks for the cookie `uuid`. If it doesn't find one, it gen
 
 While the instructions I wanted the opportunity to demonstrate decent motion design and mastering of DOM manipulation. IMHO, we are entering a new era of webpapps, one in which animation is going to be play increasingly important part in interaction design. So, I included a couple of simple animations triggered within Marionnette's onRender and onShow methods. 
 
+The client was built (unfortunately, it turns out) on the BackboneBoiler Plate (XXX). As a result, there's a lot of cruft (particularly in the index.html) that make the code less than readable.
+
 Database API
 
 Database access is via a single Get and Set. Get retrieves the restaurant data, Set updates a rating. 
@@ -41,7 +43,6 @@ If it's not obvious, there are two schemas on the mongodb database: the restaura
 !!Tests
 
 Several things prevented me from doing a proper job. IMHO, TDD is best done when you are entirely familiar with 
-
 
 However, I wanted to show you my testing style so I build >some< of the project as I would 
 
