@@ -8,7 +8,7 @@
 
 ## Client
 
-On load, the client checks for the cookie `uuid`. If it doesn't find one, it generates a unique id for the client and sets the cookie. Then it uses the uuid to retrieve the data payload. So, if you want access the app from a different user, use a different device or delete the cookie.
+On load, the client checks for the cookie `uuid`. If it doesn't find one, it generates a unique id for the client and sets the cookie. Then it uses the uuid to retrieve the data payload. So, if you want access the app as a different user, use a different browser or device, or delete the cookie.
 
 While the instructions were not to bother 'designing' the app, I wanted the opportunity to demonstrate decent motion design and integration of DOM manipulation with marionette's view system. So, I included a couple of simple animations triggered within Marionnette's onRender and onShow methods (Oh, and the spinning 'loading' icon while the database is accessed).
 
