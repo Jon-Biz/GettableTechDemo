@@ -8,7 +8,7 @@
 
 ## Client
 
-On load, the client checks for the cookie `uuid`. If it doesn't find one, it generates a unique id for the client and sets the cookie. Then it uses the uuid to retrieve the data payload. So, if you want access the app as a different user, use a different browser or device, or delete the cookie.
+The client set or generates a cookie for a unique user id, so if you want access the app as a different user, use a different browser or device, or delete the cookie. Then it uses the id to `GET \data\{uid}` from the server.
 
 While the instructions were not to bother 'designing' the app, I wanted the opportunity to demonstrate integration of DOM manipulation with marionette's view system. So, I included a couple of simple animations triggered within Marionnette's onRender and onShow methods.
 
