@@ -3,7 +3,6 @@ var sinon = require('sinon');
 var matchers = require('jasmine-sinon');
 
 //stub of mongo id function
-//Added for demonstration purposes only
 //There are probably much better ways 
 //to do this such as Mongoose-mock, mockgoose.
 
