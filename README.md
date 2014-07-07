@@ -44,4 +44,4 @@ I worked quickly, and did not use unit testing for most of this. However, since 
 
 https://github.com/Jon-Biz/GettableTechDemo/tree/master/database/tests
 
-To run them, clone the project, run npm install, then the command `Grunt jasmine`
+To run them, clone the project, run `npm install`, then the command `Grunt jasmine`
