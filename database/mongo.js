@@ -88,29 +88,27 @@ db.once('open', function() {
 
 			getRestaurant.promise.then(function (restaurant) {
 				getUser.promise.then(function (user) {
-
 					var dupe = false;
 
-					_.each(user.reviews,function (review) {
-						if(review[restaurant._id]){
-							console.log('restaurant._id',review[restaurant._id])
+					_.each(user.reviews,function (review,index) {
+						if(_.has(review,restaurant._id)){
 							review[restaurant._id] = rating.myrating;
-							console.log('rating',rating.myrating)
-						console.log('user.reviews ',user.reviews[0])
+
+							//remove zero ratings
+							if(rating.myrating == 0){
+								user.reviews.splice(index,1);
+							}
 							dupe = true;
 						}
-						console.log('user.reviews ',user.reviews[0])
 					})
 
-					if(!dupe){
+					if(!dupe && !(rating.myrating == 0)){
 						var review = {};
 						review[restaurant._id] = rating.myrating										
 						user.reviews.push(review);
-						console.log('pushed:',user.reviews)
 					}
 
 					User.update({user_id:uuid},{'reviews':user.reviews},function (error,number) {
-						console.log('done:',number)
 						deferred.resolve();
 					})
 				})

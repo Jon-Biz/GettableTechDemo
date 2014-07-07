@@ -11,14 +11,10 @@ module.exports = function joinData (current_user, users, restaurants) {
 
 		_.each(users,function pluckRating (user) {
 			_.each(user.reviews,function checkReviews (review) {
-				console.log('review',review);
-				console.log('review',restaurant._id);
 
 				if(_.has(review,restaurant._id)){
 					count++;
 					ratings = ratings + review[restaurant._id];
-					console.log('user',user._id);
-					console.log('current user',current_user._id);
 					
 					if(user._id.equals(current_user._id)){
 						myrating = review[restaurant._id];

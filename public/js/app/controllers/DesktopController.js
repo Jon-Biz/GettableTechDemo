@@ -20,7 +20,7 @@ define(['App', 'backbone', 'marionette', 'views/WelcomeView', 'views/DesktopHead
                 window.setTimeout(function () {
                     var RatingView = new RatingsView();
                     App.mainRegion.show(RatingView);
-                },1000);
+                },500);
             });
 
         }

@@ -56,7 +56,6 @@ define( ['App', 'backbone', 'marionette', 'jquery', 'handlebars','models/Restaur
 
                 // The 0.06 number is a hack, due to time constraints. It should actually be 5%
                 // The DOM it sits in is too long for what it should do.
-
                 var percent = (this.model.get('rating')/0.06)+'%';
                 this.$('.countbar').animate({width:percent},1000);
                 this.shown = true;
