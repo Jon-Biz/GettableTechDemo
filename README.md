@@ -26,7 +26,7 @@ The Get data retrieves all the restaurants and users from their collections. The
 
 Iterating through the Restaurants, it tallies and average their ratings across the Users, and sets this on each restaurant object. Then it returns this as json to the client.
 
-###SET `\data\uuid`
+###SET `\data\uuid\rating`
 
 This sets a rating for the user. The body from the client is the restaurant model including the user's rating. 
 
