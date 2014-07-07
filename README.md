@@ -36,7 +36,7 @@ The User's data is then updated on the server. Then, the getdata function is tri
 
 ## Schema
 
-If it is not obvious, there are two schemas on the mongodb database: the restaurant one, which holds static restaurant data, and the Users, which holds an array containing a key/value pairs for each restaurant the user has reveiwed.
+If it is not obvious from the API, there are two schemas on the mongodb database: the restaurant one, which holds static restaurant data, and the Users, which holds an array containing a key/value pairs for each restaurant the user has reveiwed.
 
 ##Tests
 
