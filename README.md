@@ -46,4 +46,4 @@ Since time constraints prevented me from doing a proper job, I didn't test most 
 
 https://github.com/Jon-Biz/GettableTechDemo/tree/master/database/tests
 
-To run them, clone this prohect, run npm install, then the command `Grunt jasmine`
+To run them, clone the project, run npm install, then the command `Grunt jasmine`
