@@ -40,7 +40,7 @@ If it is not obvious from the API, there are two schemas on the mongodb database
 
 ##Tests
 
-I worked quickly, and did not use unit testing for most of it I did not test most of this. However, since I wanted to show you exampes of tests, I built a couple of models in a test driven style. Here jasmine tests of the data joining and database access modules, injecting promises and making use of callback interceptors:
+I worked quickly, and did not use unit testing for most of this. However, since I wanted to show you exampes of tests, I built a couple of models in a test driven style. Here jasmine tests of the data joining and database access modules, injecting promises and making use of callback interceptors:
 
 https://github.com/Jon-Biz/GettableTechDemo/tree/master/database/tests
 
