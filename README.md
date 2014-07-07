@@ -6,8 +6,6 @@
 
 **Hosted here:** http://slobotnik.no-ip.info:3000
 
-*NOTE: I've noticed that on the iphone, the stars being close to the 'delete rating' button, so you can accidentally touch it when you mean to press '5 stars'.*
-
 ## Client
 
 On load, the client checks for the cookie `uuid`. If it doesn't find one, it generates a unique id for the client and sets the cookie. Then it uses the uuid to retrieve the data payload. So, if you want access the app from a different user, use a different device or delete the cookie.
