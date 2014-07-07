@@ -28,7 +28,7 @@ Iterating through the Restaurants, it tallies and average their ratings across t
 
 This sets a rating for the user. The body from the client is the restaurant model including the user's rating. 
 
-If it finds the user in the User database, it retrieves the rating and update it. Otherwise it sets it.
+If it finds the user in the User database, it retrieves the rating and updates it. Otherwise it sets it.
  
 The client considers a rating of zero to be a delete and consequently the server deletes the record, so that it count toward the average score.
 
