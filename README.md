@@ -1,12 +1,12 @@
 
 # Roast or Rant? 
-A_tech_demo_for_Gettable.com
+*A tech demo for Gettable.com*
 
-Hosted here:
+**Hosted here:**
 
-http://slobotnik.no-ip.com:1234
+http://slobotnik.no-ip.com:3000
 
-NOTE: I've noticed that on a the iphone, the stars are too close to the 'delete rating' button, and so you can accidentally touch it when you mean to press '5 stars'.
+*NOTE: I've noticed that on a the iphone, the stars are too close to the 'delete rating' button, and so you can accidentally touch it when you mean to press '5 stars'.*
 
 ## Client
 
